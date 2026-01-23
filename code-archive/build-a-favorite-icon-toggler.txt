@@ -1,0 +1,49 @@
+** start of index.html **
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Favorite Icon Toggler</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <main>
+      <ul class="item-list">
+        <li>Apple<button class="favorite-icon">&#9825;</button></li>
+        <li>Orange<button class="favorite-icon">&#9825;</button></li>
+        <li>Banana<button class="favorite-icon">&#9825;</button></li>
+      </ul>
+    </main>
+  </body>
+  <script src="script.js"></script>
+</html>
+
+** end of index.html **
+
+** start of styles.css **
+
+.filled {
+  color: red;
+}
+
+** end of styles.css **
+
+** start of script.js **
+
+const buttons = document.querySelectorAll("button");
+
+function toggle(event) {
+  let icon = event.target;
+  let filled = icon.classList.toggle("filled");
+  icon.innerHTML = filled ? "&#10084;" : "&#9825;";
+}
+
+buttons.forEach(button => {
+  button.addEventListener("click", toggle);
+})
+
+
+** end of script.js **
+

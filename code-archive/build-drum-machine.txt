@@ -1,0 +1,90 @@
+** start of index.html **
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Drum Machine</title>
+  </head>
+  <body>
+    <div id="drum-machine">
+      <div id="pad-bank">
+        <button class="drum-pad" id="Heater 1">
+          Q
+          <audio class="clip" src="https://cdn.freecodecamp.org/curriculum/drum/Heater-1.mp3" id="Q">
+        </button>
+        <button class="drum-pad" id="Heater 2">
+          W
+          <audio class="clip" src="https://cdn.freecodecamp.org/curriculum/drum/Heater-2.mp3" id="W">
+        </button>
+        <button class="drum-pad" id="Heater 3">
+          E
+          <audio class="clip" src="https://cdn.freecodecamp.org/curriculum/drum/Heater-3.mp3" id="E">
+        </button>
+        <button class="drum-pad" id="Heater 4">
+          A
+          <audio class="clip" src="https://cdn.freecodecamp.org/curriculum/drum/Heater-4_1.mp3" id="A">
+        </button>
+        <button class="drum-pad" id="Clap">
+          S
+          <audio class="clip" src="https://cdn.freecodecamp.org/curriculum/drum/Heater-6.mp3" id="S">
+        </button>
+        <button class="drum-pad" id="Open-HH">
+          D
+          <audio class="clip" src="https://cdn.freecodecamp.org/curriculum/drum/Dsc_Oh.mp3" id="D">
+        </button>
+        <button class="drum-pad" id="Kick-n'-Hat">
+          Z
+          <audio class="clip" src="https://cdn.freecodecamp.org/curriculum/drum/Kick_n_Hat.mp3" id="Z">
+        </button>
+        <button class="drum-pad" id="Kick">
+          X
+          <audio class="clip" src="https://cdn.freecodecamp.org/curriculum/drum/RP4_KICK_1.mp3" id="X">
+        </button>
+        <button class="drum-pad" id="Closed-HH">
+          C
+          <audio class="clip" src="https://cdn.freecodecamp.org/curriculum/drum/Cev_H2.mp3" id="C">
+        </button>
+      </div>
+      <p id="display"></p>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+** end of index.html **
+
+** start of styles.css **
+
+
+
+** end of styles.css **
+
+** start of script.js **
+
+const drumPads = document.querySelectorAll(".drum-pad");
+const display = document.querySelector("#display");
+
+function playDrums(event) {
+  let key;
+  if (event.type === "click") {
+    key = event.target.innerText;
+  } else if (event.type === "keydown") {
+    key = event.key.toUpperCase();
+  }
+  const audio = document.getElementById(key);
+  if (!audio) return
+  audio.currentTime = 0;
+  audio.play();
+  display.innerText = key;
+}
+
+drumPads.forEach(pad => {
+  pad.addEventListener("click", playDrums)
+});
+
+document.addEventListener("keydown", playDrums)
+
+
+** end of script.js **
+
