@@ -1,0 +1,56 @@
+** start of script.js **
+
+class BankAccount {
+  constructor(balance = 0) {
+    this.balance = balance;
+    this.transactions = [];
+  }
+
+  deposit(amount) {
+    if (amount > 0) {
+      this.transactions.push({ type: "deposit", amount });
+      this.balance += amount;
+      return `Successfully deposited $${amount}. New balance: $${this.balance}`;
+    }
+    return `Deposit amount must be greater than zero.`;
+  }
+
+  withdraw(amount) {
+    if (amount <= 0 || amount > this.balance) {
+      return `Insufficient balance or invalid amount.`;
+    } else {
+      this.transactions.push({ type: "withdraw", amount })
+      this.balance -= amount;
+      return `Successfully withdrew $${amount}. New balance: $${this.balance}`;
+    }
+  }
+
+  checkBalance() {
+    return `Current balance: $${this.balance}`;
+  }
+
+  listAllDeposits() {
+    const deposits = this.transactions.filter(transaction => transaction.type === "deposit").map(money => money.amount);
+    return `Deposits: ${deposits.join()}`;
+  }
+
+  listAllWithdrawals() {
+    const withdrawals = this.transactions.filter(transaction => transaction.type === "withdraw").map(money => money.amount);
+    return `Withdrawals: ${withdrawals.join()}`;
+  }
+
+  static defaultAccount = new BankAccount();
+  static deposit(amount) {
+    return BankAccount.defaultAccount.deposit(amount);
+  }
+}
+BankAccount.deposit(100);
+const myAccount = new BankAccount();
+myAccount.deposit(100);
+myAccount.deposit(100000);
+myAccount.withdraw(50);
+myAccount.withdraw(10);
+myAccount.deposit(50000);
+
+** end of script.js **
+
