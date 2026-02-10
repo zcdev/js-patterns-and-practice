@@ -1,0 +1,103 @@
+** start of index.html **
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Weather App</title>
+  </head>
+
+  <body>
+    <select>
+      <option value></option>
+      <option value="new york">New York</option>
+      <option value="los angeles">Los Angeles</option>
+      <option value="chicago">Chicago</option>
+      <option value="paris">Paris</option>
+      <option value="tokyo">Tokyo</option>
+      <option value="london">London</option>
+    </select>
+    <button id="get-weather-btn">Get Weather</button>
+<div id="weather-app">
+  <h2 id="location"></h2>
+  <div class="weather-main">
+    <img id="weather-icon" alt="Weather icon" />
+    <div id="weather-main"></div>
+  </div>
+  <div class="weather-details">
+    <div id="main-temperature"></div>
+    <div id="feels-like"></div>
+    <div id="humidity"></div>
+    <div id="wind"></div>
+    <div id="wind-gust"></div>
+  </div>
+</div>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+** end of index.html **
+
+** start of styles.css **
+
+
+
+** end of styles.css **
+
+** start of script.js **
+
+const getWeatherData = document.getElementById("get-weather-btn");
+
+let getLocationValue = document.querySelector("select");
+
+const getCity = document.getElementById("location");
+
+const mainTemp = document.getElementById("main-temperature");
+
+const feelsLike = document.getElementById("feels-like");
+
+const humidity = document.getElementById("humidity");
+
+const wind = document.getElementById("wind");
+
+const windGust = document.getElementById("wind-gust");
+
+const weatherMain = document.getElementById("weather-main");
+
+const weatherIcon = document.getElementById("weather-icon");
+
+async function getWeather(city) {
+  if (city === "paris") {
+    alert(`Something went wrong, please try again later`);
+  }
+  try {
+    const url = `https://weather-proxy.freecodecamp.rocks/api/city/${encodeURIComponent(city)}`;
+    const response = await fetch(url);
+    return response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function showWeather(city) {
+  const data = await getWeather(city);
+  console.log(data);
+  weatherIcon.src = data?.weather[0]?.icon ?? "N/A";
+  weatherMain.textContent = data?.weather[0]?.main ?? "N/A";
+  mainTemp.textContent = data?.main?.temp ?? "N/A";
+  feelsLike.textContent = data?.main?.feels_like ?? "N/A";
+  humidity.textContent = data?.main?.humidity ?? "N/A";
+  wind.textContent = data?.wind?.speed ?? "N/A";
+  windGust.textContent = data?.wind.gust ?? "N/A";
+  getCity.textContent = data?.name ?? "N/A";
+}
+
+getWeatherData.addEventListener("click", () => {
+  let city = getLocationValue.value.toLowerCase();
+  if (!city) return;
+  showWeather(city);
+});
+
+
+** end of script.js **
+
